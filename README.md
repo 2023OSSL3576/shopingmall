@@ -20,6 +20,34 @@
 - 장바구니 전체 결제 기능
 - 할인쿠폰 자동적용 기능
 
+# 코드 및 기능
+```c
+typedef struct{
+    char id[10]; //아이디
+    char password[12]; //비밀번호
+    char phoneNumber[11]; //휴대전화 번호
+    char userName[30]; //이름
+}User;
+
+void signUp(User *u); //회원가입하는 함수
+void signIn(User *u); //로그인하는 함수
+void loadUser(User *u); //유저 정보 파일을 읽어오는 함수
+void saveUser(User * u); //유저 정보 파일을 저장함수 함수
+
+typedef struct{
+    char name[30]; //상품명
+    int price; //상품 가격
+    char type; //상품 타입(카테고리)
+}Product;
+
+void addProduct(Product *p); //상품을 추가하는 함수
+void deleteProduct(Product *p); //담은 상품을 삭제하는 함수
+void readProduct(Product *p); //담은 상품을 조회하는 함수
+void updateProduct(Product *p); //담은 상품의 정보를 수정하는 함수
+void payProduct(Product *p); //담은 상품을 결제하는 함수
+void applyCoupon(Product *p); //쿠폰을 자동으로 적용해주는 함수
+```
+
 # 개발환경 및 언어
 
 - git
