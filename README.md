@@ -28,4 +28,9 @@
 
 # 팀원 소개 및 팀원 역할
 ### 곽동우 [GoldenWo1f GITHUB LINK] (https://github.com/GoldenWo1f)
+- 장바구니 구현
+- 위키관리
+- README.md 수정
 ### 김민서 [csee22-076 GITHUB LINK] (https://github.com/csee22-076)
+- 로그인 구현
+- 코드 오류 수정
