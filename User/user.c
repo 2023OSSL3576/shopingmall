@@ -1,6 +1,5 @@
 #include "user.h"
 #include "stdio.h"
-#define max_size = 20;
 
 void saveUser(User *u[], int count){
     FILE *data;
