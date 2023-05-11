@@ -12,3 +12,14 @@ void saveUser(User *u[], int count){
     printf("=> 저장되었습니다!\n");
     fclose(data);
 }
+
+int loadUser(User *u[]){
+    FILE *data;
+    int i = 0;
+    data = fopen("user.txt", "r");
+    while(!eof(data)){
+        if(fscanf(data, "%s %s %s %s",u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName)!=4) break;
+        i++;
+    }
+    return i;
+}
