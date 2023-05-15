@@ -26,7 +26,7 @@ int loadUser(User *u[]){
 }
 
 void withdrawal(User *u[], int count){
-    char id[10];
+    char id[11];
 
     printf("삭제하려는 아이디: ");
     scanf("%[^\n]s", id);
@@ -46,9 +46,9 @@ void withdrawal(User *u[], int count){
 
 void signUp(User *u[]){
     char check_blank = 0;
-    char id[10];
-    char password[12];
-    char phoneNumber[11];
+    char id[11];
+    char password[13];
+    char phoneNumber[12];
     char userName[30]; 
 
     while(1){

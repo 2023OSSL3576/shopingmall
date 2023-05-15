@@ -1,7 +1,7 @@
 typedef struct{
-    char id[10]; //아이디
-    char password[12]; //비밀번호
-    char phoneNumber[11]; //휴대전화 번호
+    char id[11]; //아이디
+    char password[13]; //비밀번호
+    char phoneNumber[12]; //휴대전화 번호
     char userName[30]; //이름
 }User;
 
