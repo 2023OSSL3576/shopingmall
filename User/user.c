@@ -44,12 +44,13 @@ void withdrawal(User *u[], int count){
     printf("=>찾으시는 아이디가 없습니다.\n");
 }
 
-void signUp(User *u[]){
+int signUp(User *u[], int count){
     char check_blank = 0;
     char id[11];
     char password[13];
     char phoneNumber[12];
     char userName[30]; 
+    count++;
 
     while(1){
         printf("아이디(10글자 이내, 띄어쓰기 미포함): ");
