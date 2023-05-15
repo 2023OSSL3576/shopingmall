@@ -9,7 +9,7 @@ void saveUser(User *u[], int count){
             fprintf(data,"%s %s %s %s\n", u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName);
         }
     }
-    printf("=> 저장되었습니다!\n");
+    printf("=>저장되었습니다.\n");
     fclose(data);
 }
 
@@ -22,4 +22,11 @@ int loadUser(User *u[]){
         i++;
     }
     return i;
+}
+
+void withdrawal(User *u[]){
+    FILE *data;
+    char id[10];
+
+    printf("=>삭제하려는 아이디: ");
 }
