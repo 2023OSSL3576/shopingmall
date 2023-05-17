@@ -5,8 +5,8 @@
 void saveUser(User *u[], int count){
     FILE *data;
     data = fopen("user.txt", "w");
-    for(int i=0; i<count; i++){
-        if(u[i]->id!=0){
+    for(int i=0; i<count+1; i++){
+        if(u[i]->id[0]!=NULL){
             fprintf(data,"%s %s %s %s\n", u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName);
         }
     }
@@ -107,6 +107,7 @@ int signUp(User *u[], int count){
     if(strcmp(userName,"-1")==0) return count;
 
     printf("=>회원가입이 완료되었습니다.\n");
+
     return count++;
 }
 
