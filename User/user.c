@@ -50,11 +50,12 @@ int signUp(User *u[], int count){
     char password[13];
     char phoneNumber[12];
     char userName[30]; 
-    count++;
 
+    printf("각 단계에서 취소하시려면 -1을 입력해주세요.\n");
     while(1){
         printf("아이디(10글자 이내, 띄어쓰기 미포함): ");
         scanf("%[^\n]s", id);
+        if(strcmp(id,"-1")==0) return count;
         if(strlen(id)>10){
             printf("=>10글자 초과입니다. 다시 시도해주세요.\n");
             continue;
@@ -74,6 +75,7 @@ int signUp(User *u[], int count){
     while(1){
         printf("비밀번호(12글자 이내, 띄어쓰기 미포함): ");
         scanf("%[^\n]s", password);
+        if(strcmp(password,"-1")==0) return count;
         if(strlen(password)>!2){
             printf("=>12글자 초과입니다. 다시 시도해주세요.\n");
             continue;
@@ -92,6 +94,7 @@ int signUp(User *u[], int count){
     while(1){
         printf("전화번호(-없이 숫자만, 띄어쓰기 미포함): ");
         scanf("%[^\n]s", phoneNumber);
+        if(strcmp(phoneNumber,"-1")==0) return count;
         if(strlen(password)>12){
             printf("=>11글자 초과 혹은 '-'이나 띄어쓰기가 포함되어 있습니다. 다시 시도해주세요.\n");
             continue;
@@ -101,8 +104,12 @@ int signUp(User *u[], int count){
 
     printf("이름: ");
     scanf("%[^\n]s", userName);
+    if(strcmp(userName,"-1")==0) return count;
 
     printf("=>회원가입이 완료되었습니다.\n");
+    return count++;
 }
 
-void signIn(User *u[]);
+void signIn(User *u[], int count){
+
+}
