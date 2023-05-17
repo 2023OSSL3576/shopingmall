@@ -107,10 +107,42 @@ int signUp(User *u[], int count){
     if(strcmp(userName,"-1")==0) return count;
 
     printf("=>회원가입이 완료되었습니다.\n");
-
+    saveUser(u, count);
     return count++;
 }
 
-void signIn(User *u[], int count){
+int signIn(User *u[], int count){
+    char id[11];
+    char password[13];
+    char check = 0;
 
+    printf("------------Sign In------------");
+    printf("아이디: ");
+    scanf("%s", id);
+    for(int i=0; i<count; i++){
+        if(strcmp(u[i]->id,id)==0){
+            check = 1;
+            break;
+        }
+    }
+    if(check = 0){
+        printf("=>잘못되거나 없는 아이디입니다.\n");
+        return 0;
+    }
+    else{
+        printf("비밀번호: ");
+        scanf("%s", password);
+        for(int i=0; i<count; i++){
+            if(strcmp(u[i]->password,password)==0){
+            check = 2;
+            break;
+            }
+        }
+    }
+    if(check==1){
+        printf("=>잘못된 비밀번호입니다.\n");
+        return 0;
+    }
+    else printf("=>로그인되었습니다.\n");
+    return 1;
 }
