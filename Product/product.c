@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include "product.h"
 
-void addProduct(Product *p){
+int addProduct(Product *p){
     printf("상품명: ");
     scanf("%s", p->name);
     printf("가격: ");
     scanf("%d", &p->price);
     printf("상품 타입(1:식품, 2:의류, 3:가전제품): ");
     scanf("%c", &p->type);
+    
+    return 1;
 }
 
 int deleteProduct(Product *p[], int count){
@@ -29,4 +31,21 @@ void readProduct(Product *p[], int count){
     for(int i=0; i<count; i++){
         printf("%-2d  %s %d %c\n", i+1, p[i]->name, p[i]->price, p[i]->type);
     }
+}
+
+void updateProduct(Product *p[], int count){
+    if(count == 0)
+        return;
+    readProduct(p, count);
+    int num;
+    printf("수정하고 싶은 상품의 번호: ");
+    scanf("%d", &num);
+    if(num > count-1 || num < 0)
+        return;
+    printf("상품명: ");
+    scanf("%s", p[num-1]->name);
+    printf("가격: ");
+    scanf("%d", &p[num-1]->price);
+    printf("상품 타입(1:식품, 2:의류, 3:가전제품): ");
+    scanf("%c", &p[num-1]->type);
 }
