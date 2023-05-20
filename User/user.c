@@ -22,6 +22,7 @@ int loadUser(User *u[]){
         if(fscanf(data, "%s %s %s %s",u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName)!=4) break;
         i++;
     }
+    fclose(data);
     return i;
 }
 
