@@ -7,10 +7,8 @@
 void saveUser(User *u[], int count){
     FILE *data;
     data = fopen("user.txt", "w");
-    for(int i=0; i<count+1; i++){
-        if(u[i]->id[0]!='\0'){
-            fprintf(data,"%s %s %s %s\n", u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName);
-        }
+    for(int i=0; i<count; i++){
+        fprintf(data,"%s %s %s %s\n", u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName);
     }
     printf("저장되었습니다.\n");
     fclose(data);
@@ -28,41 +26,49 @@ int loadUser(User *u[]){
     return i;
 }
 
-/*
-int loadUserNumber(){
-    FILE *data;
-    int i = 0;
-    char id[11]; //아이디
-    char password[13]; //비밀번호
-    char phoneNumber[12]; //휴대전화 번호
-    char userName[30]; //이름
-    data = fopen("user.txt", "r");
-    while(!feof(data)){
-        if(fscanf(data, "%s %s %s %s",id, password, phoneNumber, userName)!=4) break;
-        i++;
-    }
-    fclose(data);
-    return i;
-}*/
-
 void withdrawal(User *u[], int count){
     char id[11];
+    char password[13];
+    bool id_check = false;
+    bool password_check = false;
+    int id_location;
 
-    printf("------------Withdrawal------------");
-    printf("삭제하려는 아이디: ");
+    printf("------------Withdrawal------------\n");
+    printf("삭제하려는 계정의 아이디: ");
+    getchar();
     scanf("%[^\n]s", id);
-    if(strlen(id)>10){
-        printf("아이디는 10글자 이하입니다.\n");
+    if(strcmp(id, "-1")==0){
+        printf("찾으시는 아이디가 없습니다.\n");
         return;
     }
     for(int i=0; i<count; i++){
         if(strcmp(u[i]->id, id)==0){
-            u[i]->id[0] = '\0';
-            printf("삭제되었습니다.\n");
-            return;
+            id_check = true;
+            id_location = i;
+            break;
         }
     }
-    printf("찾으시는 아이디가 없습니다.\n");
+    if(id_check==false){
+        printf("찾으시는 아이디가 없습니다.\n");
+        return;
+    }
+    else{
+        printf("삭제하려는 계정의 비밀번호: ");
+        getchar();
+        scanf("%[^\n]s", password);
+        if(strcmp(u[id_location]->password, password)==0) {
+            strcpy(u[id_location]->id, "-1");
+            password_check = true;
+        }
+        if(password_check==false){
+            printf("틀린 비밀번호입니다.\n");
+            return;
+        }
+        else {
+            printf("삭제되었습니다.\n");
+            saveUser(u, count);
+        }
+    }
 }
 
 int signUp(User *u[], int count){
@@ -73,7 +79,7 @@ int signUp(User *u[], int count){
     char userName[30]; 
 
     printf("------------Sign Un------------\n");
-    printf("각 단계에서 회원가입을 취고하시려면 -1을 입력해주세요.");
+    printf("각 단계에서 회원가입을 취고하시려면 -1을 입력해주세요.\n");
     while(1){
         check_blank = false;
         printf("1. 아이디(10글자 이내, 띄어쓰기 미포함): ");
@@ -158,9 +164,10 @@ int signUp(User *u[], int count){
     strcpy(u[count]->phoneNumber, phoneNumber);
     strcpy(u[count]->userName, userName);
 
+    count++;
     printf("\n회원가입이 완료되었습니다.\n");
     saveUser(u, count);
-    return count++;
+    return count;
 }
 
 int signIn(User *u[], int count){

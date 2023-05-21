@@ -8,7 +8,7 @@ int main(void){
     User *u[max];
     int Umenu;
     int count = 0;
-    char checkSignIn = 0;
+    int checkSignIn = 0;
 
     for(int i=0; i<max; i++){
         u[i] = (User*)malloc(sizeof(User));
@@ -22,8 +22,10 @@ int main(void){
         if(Umenu==1) {
             checkSignIn = signIn(u, count);
         }
-        else if(Umenu==2) signUp(u, count);
+        else if(Umenu==2) {
+            count = signUp(u, count);
+            printf("%d", count);
+        }
         else if(Umenu==3) withdrawal(u, count);
     }
-    printf("%s", checkSignIn);
 }
