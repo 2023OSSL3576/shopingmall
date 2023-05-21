@@ -1,6 +1,8 @@
 #include "user.h"
-#include "stdio.h"
-#include "string.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 void saveUser(User *u[], int count){
     FILE *data;
@@ -10,7 +12,7 @@ void saveUser(User *u[], int count){
             fprintf(data,"%s %s %s %s\n", u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName);
         }
     }
-    printf("ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+    printf("ÀúÀåµÇ¾ú½À´Ï´Ù.\n");
     fclose(data);
 }
 
@@ -30,10 +32,10 @@ int loadUser(User *u[]){
 int loadUserNumber(){
     FILE *data;
     int i = 0;
-    char id[11]; //ì•„ì´ë””
-    char password[13]; //ë¹„ë°€ë²ˆí˜¸
-    char phoneNumber[12]; //íœ´ëŒ€ì „í™” ë²ˆí˜¸
-    char userName[30]; //ì´ë¦„
+    char id[11]; //¾ÆÀÌµğ
+    char password[13]; //ºñ¹Ğ¹øÈ£
+    char phoneNumber[12]; //ÈŞ´ëÀüÈ­ ¹øÈ£
+    char userName[30]; //ÀÌ¸§
     data = fopen("user.txt", "r");
     while(!feof(data)){
         if(fscanf(data, "%s %s %s %s",id, password, phoneNumber, userName)!=4) break;
@@ -46,81 +48,108 @@ int loadUserNumber(){
 void withdrawal(User *u[], int count){
     char id[11];
 
-    printf("ì‚­ì œí•˜ë ¤ëŠ” ì•„ì´ë””: ");
+    printf("------------Withdrawal------------");
+    printf("»èÁ¦ÇÏ·Á´Â ¾ÆÀÌµğ: ");
     scanf("%[^\n]s", id);
     if(strlen(id)>10){
-        printf("ì•„ì´ë””ëŠ” 10ê¸€ì ì´í•˜ì…ë‹ˆë‹¤.\n");
+        printf("¾ÆÀÌµğ´Â 10±ÛÀÚ ÀÌÇÏÀÔ´Ï´Ù.\n");
         return;
     }
     for(int i=0; i<count; i++){
         if(strcmp(u[i]->id, id)==0){
             u[i]->id[0] = '\0';
-            printf("ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+            printf("»èÁ¦µÇ¾ú½À´Ï´Ù.\n");
             return;
         }
     }
-    printf("ì°¾ìœ¼ì‹œëŠ” ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤.\n");
+    printf("Ã£À¸½Ã´Â ¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù.\n");
 }
 
 int signUp(User *u[], int count){
-    char check_blank = 0;
+    bool check_blank;
     char id[11];
     char password[13];
     char phoneNumber[12];
     char userName[30]; 
 
-    printf("ê° ë‹¨ê³„ì—ì„œ íšŒì›ê°€ì…ì„ ì·¨ê³ í•˜ì‹œë ¤ë©´ -1ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
+    printf("------------Sign Un------------\n");
+    printf("°¢ ´Ü°è¿¡¼­ È¸¿ø°¡ÀÔÀ» Ãë°íÇÏ½Ã·Á¸é -1À» ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
     while(1){
-        printf("ì•„ì´ë””(10ê¸€ì ì´ë‚´, ë„ì–´ì“°ê¸° ë¯¸í¬í•¨): ");
+        check_blank = false;
+        printf("¾ÆÀÌµğ(10±ÛÀÚ ÀÌ³», ¶ç¾î¾²±â ¹ÌÆ÷ÇÔ): ");
+        getchar();
         scanf("%[^\n]s", id);
         if(strcmp(id,"-1")==0) return count;
         if(strlen(id)>10){
-            printf("10ê¸€ì ì´ˆê³¼ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.\n");
+            printf("10±ÛÀÚ ÃÊ°úÀÔ´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.\n");
             continue;
         }
-        for(int i=0; i<10; i++){
+        for(int i=0; i<strlen(id); i++){
             if(id[i] == ' '){
-                printf("ë„ì–´ì“°ê¸°ê°€ ë˜ì–´ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.\n");
-                check_blank = 1;
+                printf("¶ç¾î¾²±â°¡ µÇ¾î ÀÖ½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.\n");
+                check_blank = true;
                 break;
             }
         }
-        if(check_blank==1) continue;
+        if(check_blank==true) continue;
         else break;
     }
-    check_blank = 0;
 
     while(1){
-        printf("ë¹„ë°€ë²ˆí˜¸(12ê¸€ì ì´ë‚´, ë„ì–´ì“°ê¸° ë¯¸í¬í•¨): ");
+        check_blank = false;
+        printf("ºñ¹Ğ¹øÈ£(12±ÛÀÚ ÀÌ³», ¶ç¾î¾²±â ¹ÌÆ÷ÇÔ): ");
+        getchar();
         scanf("%[^\n]s", password);
         if(strcmp(password,"-1")==0) return count;
-        if(strlen(password)>!2){
-            printf("12ê¸€ì ì´ˆê³¼ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.\n");
+        if(strlen(password)>12){
+            printf("12±ÛÀÚ ÃÊ°úÀÔ´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.\n");
             continue;
         }
-        for(int i=0; i<12; i++){
+        for(int i=0; i<strlen(password); i++){
             if(password[i] == ' '){
-                printf("ë„ì–´ì“°ê¸°ê°€ ë˜ì–´ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.\n");
-                check_blank = 1;
+                printf("¶ç¾î¾²±â°¡ µÇ¾î ÀÖ½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.\n");
+                check_blank = true;
                 break;
             }
         }
-        if(check_blank==1) continue;
+        if(check_blank==true) continue;
         else break;
     }
 
     while(1){
-        printf("ì „í™”ë²ˆí˜¸(-ì—†ì´ ìˆ«ìë§Œ, ë„ì–´ì“°ê¸° ë¯¸í¬í•¨): ");
+        check_blank = false;
+        printf("ÀüÈ­¹øÈ£(-¾øÀÌ ¼ıÀÚ¸¸, ¶ç¾î¾²±â ¹ÌÆ÷ÇÔ): ");
+        getchar();
         scanf("%[^\n]s", phoneNumber);
         if(strcmp(phoneNumber,"-1")==0) return count;
-        if(strlen(password)>12){
-            printf("11ê¸€ì ì´ˆê³¼ í˜¹ì€ '-'ì´ë‚˜ ë„ì–´ì“°ê¸°ê°€ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.\n");
+        /*if(strlen(password)!=11){
+            printf("11±ÛÀÚ ÃÊ°ú, ¹Ì¸¸ È¤Àº '-'ÀÌ³ª ¶ç¾î¾²±â°¡ Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.\n");
             continue;
         }
+        else break;*/
+        for(int i=0; i<strlen(phoneNumber); i++){
+            if(phoneNumber[i] == ' '){
+                printf("¶ç¾î¾²±â°¡ µÇ¾î ÀÖ½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.\n");
+                check_blank = true;
+                break;
+            }
+            if(phoneNumber[i] == '-'){
+                printf("-ÀÌ Æ÷ÇÔµÇ¾îÀÖ½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.\n");
+                check_blank = true;
+                break;
+            }
+            if(!isdigit(phoneNumber[i])){
+                printf("¼ıÀÚ°¡ ¾Æ´Õ´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.\n");
+                check_blank = true;
+                break;
+            }
+        }
+        if(check_blank==true) continue;
         else break;
     }
 
-    printf("ì´ë¦„: ");
+    printf("ÀÌ¸§: ");
+    getchar();
     scanf("%[^\n]s", userName);
     if(strcmp(userName,"-1")==0) return count;
 
@@ -129,19 +158,20 @@ int signUp(User *u[], int count){
     strcpy(u[count]->phoneNumber, phoneNumber);
     strcpy(u[count]->userName, userName);
 
-    printf("íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+    printf("È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.\n");
     saveUser(u, count);
     return count++;
 }
 
-int signIn(User *u[], int count){
+char signIn(User *u[], int count){
     char id[11];
     char password[13];
     char check = 0;
 
-    printf("------------Sign In------------");
-    printf("ì•„ì´ë””: ");
+    printf("------------Sign In------------\n");
+    printf("¾ÆÀÌµğ: ");
     scanf("%s", id);
+    printf("%s", id);
     for(int i=0; i<count; i++){
         if(strcmp(u[i]->id,id)==0){
             check = 1;
@@ -149,11 +179,11 @@ int signIn(User *u[], int count){
         }
     }
     if(check = 0){
-        printf("ì˜ëª»ë˜ê±°ë‚˜ ì—†ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.\n");
+        printf("Àß¸øµÇ°Å³ª ¾ø´Â ¾ÆÀÌµğÀÔ´Ï´Ù.\n");
         return 0;
     }
     else{
-        printf("ë¹„ë°€ë²ˆí˜¸: ");
+        printf("ºñ¹Ğ¹øÈ£: ");
         scanf("%s", password);
         for(int i=0; i<count; i++){
             if(strcmp(u[i]->password,password)==0){
@@ -163,21 +193,21 @@ int signIn(User *u[], int count){
         }
     }
     if(check==1){
-        printf("ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸ì…ë‹ˆë‹¤.\n");
+        printf("Àß¸øµÈ ºñ¹Ğ¹øÈ£ÀÔ´Ï´Ù.\n");
         return 0;
     }
-    else printf("ë¡œê·¸ì¸ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+    else printf("·Î±×ÀÎµÇ¾ú½À´Ï´Ù.\n");
     return 1;
 }
 
 int userMenu(){
     int menu;
-    printf("\n*** ìœ ì € ì‹œìŠ¤í…œ ***\n");
-    printf("1. ë¡œê·¸ì¸\n");
-    printf("2. íšŒì› ê°€ì…\n");
-    printf("3. íšŒì› íƒˆí‡´\n");
-    printf("0. ì¢…ë£Œ\n\n");
-    printf("ë©”ë‰´ ì„ íƒ: ");
+    printf("\n*** À¯Àú ½Ã½ºÅÛ ***\n");
+    printf("1. ·Î±×ÀÎ\n");
+    printf("2. È¸¿ø °¡ÀÔ\n");
+    printf("3. È¸¿ø Å»Åğ\n");
+    printf("0. Á¾·á\n\n");
+    printf("¸Ş´º ¼±ÅÃ: ");
     scanf("%d", &menu);
     return menu;
 }

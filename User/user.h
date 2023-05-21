@@ -1,13 +1,14 @@
 typedef struct{
-    char id[11]; //ì•„ì´ë””
-    char password[13]; //ë¹„ë°€ë²ˆí˜¸
-    char phoneNumber[12]; //íœ´ëŒ€ì „í™” ë²ˆí˜¸
-    char userName[30]; //ì´ë¦„
+    char id[11]; //¾ÆÀÌµğ
+    char password[13]; //ºñ¹Ğ¹øÈ£
+    char phoneNumber[12]; //ÈŞ´ëÀüÈ­ ¹øÈ£
+    char userName[30]; //ÀÌ¸§
 }User;
 
-int signUp(User *u[], int count); //íšŒì›ê°€ì…í•˜ëŠ” í•¨ìˆ˜
-int signIn(User *u[], int count); //ë¡œê·¸ì¸í•˜ëŠ” í•¨ìˆ˜
-int loadUser(User *u[]); //ìœ ì € ì •ë³´ íŒŒì¼ì„ ì½ì–´ì˜¤ëŠ” í•¨ìˆ˜
-//int loadUserNumber(); //íšŒì›ê°€ì…ëœ ìœ ì € ìˆ˜ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜
-void saveUser(User *u[], int count); //ìœ ì € ì •ë³´ íŒŒì¼ì„ ì €ì¥í•¨ìˆ˜ í•¨ìˆ˜
-void withdrawal(User *u[], int count); //íšŒì› íƒˆí‡´í•˜ëŠ” í•¨ìˆ˜(ìœ ì € ì •ë³´ ì‚­ì œí•˜ëŠ” í•¨ìˆ˜)
+int signUp(User *u[], int count); //È¸¿ø°¡ÀÔÇÏ´Â ÇÔ¼ö
+char signIn(User *u[], int count); //·Î±×ÀÎÇÏ´Â ÇÔ¼ö
+int loadUser(User *u[]); //À¯Àú Á¤º¸ ÆÄÀÏÀ» ÀĞ¾î¿À´Â ÇÔ¼ö
+//int loadUserNumber(); //È¸¿ø°¡ÀÔµÈ À¯Àú ¼ö¸¦ ºÒ·¯¿À´Â ÇÔ¼ö
+void saveUser(User *u[], int count); //À¯Àú Á¤º¸ ÆÄÀÏÀ» ÀúÀåÇÔ¼ö ÇÔ¼ö
+void withdrawal(User *u[], int count); //È¸¿ø Å»ÅğÇÏ´Â ÇÔ¼ö(À¯Àú Á¤º¸ »èÁ¦ÇÏ´Â ÇÔ¼ö)
+int userMenu();

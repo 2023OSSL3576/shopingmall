@@ -5,13 +5,25 @@
 #define max 50
 
 int main(void){
-    User *u[max]; //수정
+    User *u[max];
     int Umenu;
-    int count;
+    int count = 0;
+    char checkSignIn = 0;
 
     for(int i=0; i<max; i++){
         u[i] = (User*)malloc(sizeof(User));
     }
 
     count = loadUser(u);
+
+    while(1){
+        Umenu = userMenu();
+        if(Umenu==0) break;
+        if(Umenu==1) {
+            checkSignIn = signIn(u, count);
+        }
+        else if(Umenu==2) signUp(u, count);
+        else if(Umenu==3) withdrawal(u, count);
+    }
+    printf("%s", checkSignIn);
 }
