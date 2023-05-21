@@ -97,6 +97,13 @@ int signUp(User *u[], int count){
                 break;
             }
         }
+        for(int i=0; i<count; i++){
+            if(strcmp(u[i]->id, id)==0){
+                printf("중복된 아이디입니다. 다시 시도해주세요.\n");
+                check_blank = true;
+                break;
+            }
+        }
         if(check_blank==true) continue;
         else break;
     }
