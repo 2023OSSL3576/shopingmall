@@ -73,10 +73,10 @@ int signUp(User *u[], int count){
     char userName[30]; 
 
     printf("------------Sign Un------------\n");
-    printf("각 단계에서 회원가입을 취고하시려면 -1을 입력해주세요.\n");
+    printf("각 단계에서 회원가입을 취고하시려면 -1을 입력해주세요.");
     while(1){
         check_blank = false;
-        printf("아이디(10글자 이내, 띄어쓰기 미포함): ");
+        printf("1. 아이디(10글자 이내, 띄어쓰기 미포함): ");
         getchar();
         scanf("%[^\n]s", id);
         if(strcmp(id,"-1")==0) return count;
@@ -97,7 +97,7 @@ int signUp(User *u[], int count){
 
     while(1){
         check_blank = false;
-        printf("비밀번호(12글자 이내, 띄어쓰기 미포함): ");
+        printf("2. 비밀번호(12글자 이내, 띄어쓰기 미포함): ");
         getchar();
         scanf("%[^\n]s", password);
         if(strcmp(password,"-1")==0) return count;
@@ -118,7 +118,7 @@ int signUp(User *u[], int count){
 
     while(1){
         check_blank = false;
-        printf("전화번호(-없이 숫자만, 띄어쓰기 미포함): ");
+        printf("3. 전화번호(-없이 숫자만, 띄어쓰기 미포함): ");
         getchar();
         scanf("%[^\n]s", phoneNumber);
         if(strcmp(phoneNumber,"-1")==0) return count;
@@ -158,27 +158,27 @@ int signUp(User *u[], int count){
     strcpy(u[count]->phoneNumber, phoneNumber);
     strcpy(u[count]->userName, userName);
 
-    printf("회원가입이 완료되었습니다.\n");
+    printf("\n회원가입이 완료되었습니다.\n");
     saveUser(u, count);
     return count++;
 }
 
-char signIn(User *u[], int count){
+int signIn(User *u[], int count){
     char id[11];
     char password[13];
-    char check = 0;
+    bool id_check = false;
+    bool password_check = false;
 
     printf("------------Sign In------------\n");
     printf("아이디: ");
     scanf("%s", id);
-    printf("%s", id);
     for(int i=0; i<count; i++){
         if(strcmp(u[i]->id,id)==0){
-            check = 1;
+            id_check = true;
             break;
         }
     }
-    if(check = 0){
+    if(id_check == false){
         printf("잘못되거나 없는 아이디입니다.\n");
         return 0;
     }
@@ -187,12 +187,12 @@ char signIn(User *u[], int count){
         scanf("%s", password);
         for(int i=0; i<count; i++){
             if(strcmp(u[i]->password,password)==0){
-            check = 2;
+            password_check = true;
             break;
             }
         }
     }
-    if(check==1){
+    if(password_check==false){
         printf("잘못된 비밀번호입니다.\n");
         return 0;
     }

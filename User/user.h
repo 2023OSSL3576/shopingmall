@@ -6,7 +6,7 @@ typedef struct{
 }User;
 
 int signUp(User *u[], int count); //회원가입하는 함수
-char signIn(User *u[], int count); //로그인하는 함수
+int signIn(User *u[], int count); //로그인하는 함수
 int loadUser(User *u[]); //유저 정보 파일을 읽어오는 함수
 //int loadUserNumber(); //회원가입된 유저 수를 불러오는 함수
 void saveUser(User *u[], int count); //유저 정보 파일을 저장함수 함수
