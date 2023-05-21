@@ -25,7 +25,7 @@ void loadUser(User *u[]){
     fclose(data);
 }
 
-int loadUserNumber(User *u[]){
+int loadUserNumber(){
     FILE *data;
     int i = 0;
     char id[11]; //아이디
