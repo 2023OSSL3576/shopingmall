@@ -162,3 +162,15 @@ int signIn(User *u[], int count){
     else printf("로그인되었습니다.\n");
     return 1;
 }
+
+int userMenu(){
+    int menu;
+    printf("\n*** 유저 시스템 ***\n");
+    printf("1. 로그인\n");
+    printf("2. 회원 가입\n");
+    printf("3. 회원 탈퇴\n");
+    printf("0. 종료\n\n");
+    printf("메뉴 선택: ");
+    scanf("%d", &menu);
+    return menu;
+}
