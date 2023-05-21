@@ -6,7 +6,7 @@ void saveUser(User *u[], int count){
     FILE *data;
     data = fopen("user.txt", "w");
     for(int i=0; i<count+1; i++){
-        if(u[i]->id[0]!=NULL){
+        if(u[i]->id[0]!='\0'){
             fprintf(data,"%s %s %s %s\n", u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName);
         }
     }
@@ -18,7 +18,7 @@ void loadUser(User *u[]){
     FILE *data;
     int i = 0;
     data = fopen("user.txt", "r");
-    while(!eof(data)){
+    while(!feof(data)){
         if(fscanf(data, "%s %s %s %s",u[i]->id, u[i]->password, u[i]->phoneNumber, u[i]->userName)!=4) break;
         i++;
     }
@@ -33,7 +33,7 @@ int loadUserNumber(){
     char phoneNumber[12]; //휴대전화 번호
     char userName[30]; //이름
     data = fopen("user.txt", "r");
-    while(!eof(data)){
+    while(!feof(data)){
         if(fscanf(data, "%s %s %s %s",id, password, phoneNumber, userName)!=4) break;
         i++;
     }
@@ -52,7 +52,7 @@ void withdrawal(User *u[], int count){
     }
     for(int i=0; i<count; i++){
         if(strcmp(u[i]->id, id)==0){
-            u[i]->id[0] = NULL;
+            u[i]->id[0] = '\0';
             printf("삭제되었습니다.\n");
             return;
         }
@@ -77,7 +77,7 @@ int signUp(User *u[], int count){
             continue;
         }
         for(int i=0; i<10; i++){
-            if(strcmp(id[i], " ")==0){
+            if(id[i] == ' '){
                 printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
                 check_blank = 1;
                 break;
@@ -97,7 +97,7 @@ int signUp(User *u[], int count){
             continue;
         }
         for(int i=0; i<12; i++){
-            if(strcmp(password[i], " "==0)){
+            if(password[i] == ' '){
                 printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
                 check_blank = 1;
                 break;

@@ -1,11 +1,17 @@
 #include "stdio.h"
-#include "user.h"
-#include "product.h"
+#include "stdlib.h"
+#include "User/user.h"
+//#include "product.h"
 
 int main(void){
-    int count = loadUserNumber();
+    User *u[50]; //수정
+    int Umenu;
 
+    int count = loadUserNumber();
+    printf("%d", count);
     for(int i=0; i<count; i++){
-        User *u = (User*)malloc(sizeof(User));
+        u[i] = (User*)malloc(sizeof(User));
     }
+
+    loadUser(u);
 }
