@@ -14,7 +14,7 @@ void saveUser(User *u[], int count){
     fclose(data);
 }
 
-void loadUser(User *u[]){
+int loadUser(User *u[]){
     FILE *data;
     int i = 0;
     data = fopen("user.txt", "r");
@@ -23,8 +23,10 @@ void loadUser(User *u[]){
         i++;
     }
     fclose(data);
+    return i;
 }
 
+/*
 int loadUserNumber(){
     FILE *data;
     int i = 0;
@@ -39,7 +41,7 @@ int loadUserNumber(){
     }
     fclose(data);
     return i;
-}
+}*/
 
 void withdrawal(User *u[], int count){
     char id[11];
@@ -121,6 +123,11 @@ int signUp(User *u[], int count){
     printf("이름: ");
     scanf("%[^\n]s", userName);
     if(strcmp(userName,"-1")==0) return count;
+
+    strcpy(u[count]->id, id);
+    strcpy(u[count]->password, password);
+    strcpy(u[count]->phoneNumber, phoneNumber);
+    strcpy(u[count]->userName, userName);
 
     printf("회원가입이 완료되었습니다.\n");
     saveUser(u, count);

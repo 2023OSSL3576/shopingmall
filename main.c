@@ -1,17 +1,17 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "User/user.h"
-//#include "product.h"
+//#include "Product/product.h"
+#define max 50
 
 int main(void){
-    User *u[50]; //수정
+    User *u[max]; //수정
     int Umenu;
+    int count;
 
-    int count = loadUserNumber();
-    printf("%d", count);
-    for(int i=0; i<count; i++){
+    for(int i=0; i<max; i++){
         u[i] = (User*)malloc(sizeof(User));
     }
 
-    loadUser(u);
+    count = loadUser(u);
 }
