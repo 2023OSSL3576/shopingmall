@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "User/user.h"
 #include "Product/product.h"
-#define max 50
+#define max 30
 
 int main(void){
     User *u[max];
@@ -36,7 +36,6 @@ int main(void){
     Product *p[30];
     int Pmenu;
     count = 0;
-    
 
     while(1){
         Pmenu = productMenu();

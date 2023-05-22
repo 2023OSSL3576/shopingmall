@@ -27,8 +27,8 @@ int loadUser(User *u[]){
 }
 
 void withdrawal(User *u[], int count){
-    char id[11];
-    char password[13];
+    char id[30];
+    char password[30];
     bool id_check = false;
     bool password_check = false;
     int id_location;
@@ -72,16 +72,16 @@ void withdrawal(User *u[], int count){
 }
 
 int signUp(User *u[], int count){
-    bool check_blank;
-    char id[11];
-    char password[13];
-    char phoneNumber[12];
-    char userName[30]; 
+    bool blank_check;
+    char id[30];
+    char password[30];
+    char phoneNumber[30];
+    char userName[50]; 
 
     printf("------------Sign Un------------\n");
     printf("각 단계에서 회원가입을 취고하시려면 -1을 입력해주세요.\n");
     while(1){
-        check_blank = false;
+        blank_check = false;
         printf("1. 아이디(10글자 이내, 띄어쓰기 미포함): ");
         getchar();
         scanf("%[^\n]s", id);
@@ -93,23 +93,23 @@ int signUp(User *u[], int count){
         for(int i=0; i<strlen(id); i++){
             if(id[i] == ' '){
                 printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
-                check_blank = true;
+                blank_check = true;
                 break;
             }
         }
         for(int i=0; i<count; i++){
             if(strcmp(u[i]->id, id)==0){
                 printf("중복된 아이디입니다. 다시 시도해주세요.\n");
-                check_blank = true;
+                blank_check = true;
                 break;
             }
         }
-        if(check_blank==true) continue;
+        if(blank_check==true) continue;
         else break;
     }
 
     while(1){
-        check_blank = false;
+        blank_check = false;
         printf("2. 비밀번호(12글자 이내, 띄어쓰기 미포함): ");
         getchar();
         scanf("%[^\n]s", password);
@@ -121,45 +121,56 @@ int signUp(User *u[], int count){
         for(int i=0; i<strlen(password); i++){
             if(password[i] == ' '){
                 printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
-                check_blank = true;
+                blank_check = true;
                 break;
             }
         }
-        if(check_blank==true) continue;
+        if(blank_check==true) continue;
         else break;
     }
 
     while(1){
-        check_blank = false;
+        blank_check = false;
         printf("3. 전화번호(-없이 숫자만, 띄어쓰기 미포함): ");
         getchar();
         scanf("%[^\n]s", phoneNumber);
+        if(strlen(phoneNumber)>11){
+            printf("11글자 초과입니다. 다시 시도해주세요\n");
+            continue;
+        }
         if(strcmp(phoneNumber,"-1")==0) return count;
         for(int i=0; i<strlen(phoneNumber); i++){
             if(phoneNumber[i] == ' '){
                 printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
-                check_blank = true;
+                blank_check = true;
                 break;
             }
             if(phoneNumber[i] == '-'){
                 printf("-이 포함되어있습니다. 다시 시도해주세요.\n");
-                check_blank = true;
+                blank_check = true;
                 break;
             }
             if(!isdigit(phoneNumber[i])){
                 printf("숫자가 아닙니다. 다시 시도해주세요.\n");
-                check_blank = true;
+                blank_check = true;
                 break;
             }
         }
-        if(check_blank==true) continue;
+        if(blank_check==true) continue;
         else break;
     }
 
-    printf("이름: ");
-    getchar();
-    scanf("%[^\n]s", userName);
-    if(strcmp(userName,"-1")==0) return count;
+    while(1){
+        printf("4. 이름: ");
+        getchar();
+        scanf("%[^\n]s", userName);
+        if(strlen(userName)>29){
+            printf("29바이트 초과입니다. 다시 입력해주세요\n");
+            continue;
+        }
+        if(strcmp(userName,"-1")==0) return count;
+        break;
+    }
 
     strcpy(u[count]->id, id);
     strcpy(u[count]->password, password);
@@ -173,8 +184,8 @@ int signUp(User *u[], int count){
 }
 
 int signIn(User *u[], int count){
-    char id[11];
-    char password[13];
+    char id[30];
+    char password[30];
     bool id_check = false;
     bool password_check = false;
 
@@ -212,13 +223,13 @@ int signIn(User *u[], int count){
 }
 
 void updateUser(User *u[], int count){
-    char id[11];
-    char password[13];
-    char phoneNumber[12];
-    char userName[30];
+    char id[30];
+    char password[30];
+    char phoneNumber[30];
+    char userName[50];
     bool id_check = false;
     bool password_check = false;
-    bool check_blank = false;
+    bool blank_check = false;
     int id_location;
     int menu = -1;
 
@@ -261,7 +272,7 @@ void updateUser(User *u[], int count){
                 scanf("%d", &menu);
                 if(menu==1){
                     while(1){
-                        check_blank = false;
+                        blank_check = false;
                         printf("새 비밀번호(취소 -1): ");
                         getchar();
                         scanf("%[^\n]s", password);
@@ -273,11 +284,11 @@ void updateUser(User *u[], int count){
                         for(int i=0; i<strlen(password); i++){
                             if(password[i] == ' '){
                                 printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
-                                check_blank = true;
+                                blank_check = true;
                                 break;
                             }
                         }
-                        if(check_blank==true) continue;
+                        if(blank_check==true) continue;
                         else {
                             strcpy(u[id_location]->password, password);
                             printf("\n수정되었습니다.\n");
@@ -288,7 +299,7 @@ void updateUser(User *u[], int count){
                 }
                 else if(menu==2){
                     while(1){
-                        check_blank = false;
+                        blank_check = false;
                         printf("현재 전화번호(취소 -1): %s\n", u[id_location]->phoneNumber);
                         printf("변경할 전화번호: ");
                         getchar();
@@ -297,21 +308,21 @@ void updateUser(User *u[], int count){
                         for(int i=0; i<strlen(phoneNumber); i++){
                             if(phoneNumber[i] == ' '){
                             printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
-                            check_blank = true;
+                            blank_check = true;
                             break;
                             }
                             if(phoneNumber[i] == '-'){
                                 printf("-이 포함되어있습니다. 다시 시도해주세요.\n");
-                                check_blank = true;
+                                blank_check = true;
                                 break;
                             }
                             if(!isdigit(phoneNumber[i])){
                                 printf("숫자가 아닙니다. 다시 시도해주세요.\n");
-                                check_blank = true;
+                                blank_check = true;
                                 break;
                             }
                         }
-                        if(check_blank==true) continue;
+                        if(blank_check==true) continue;
                         else {
                             strcpy(u[id_location]->phoneNumber, phoneNumber);
                             printf("\n수정되었습니다.\n");
