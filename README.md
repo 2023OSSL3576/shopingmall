@@ -23,10 +23,10 @@
 # 코드 및 기능
 ```c
 typedef struct{
-    char id[10]; //아이디
-    char password[12]; //비밀번호
-    char phoneNumber[11]; //휴대전화 번호
-    char userName[30]; //이름
+    char id[30]; //아이디
+    char password[30]; //비밀번호
+    char phoneNumber[30]; //휴대전화 번호
+    char userName[50]; //이름
 }User;
 
 void signUp(User *u[], int count); //회원가입하는 함수
