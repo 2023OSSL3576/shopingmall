@@ -4,6 +4,7 @@ typedef struct{
     char type; //상품 타입(카테고리)
 }Product;
 
+int productMenu(); //메뉴 입력 함수
 int addProduct(Product *p); //상품을 추가하는 함수
 int deleteProduct(Product *p[], int count); //담은 상품을 삭제하는 함수
 void readProduct(Product *p[], int count); //담은 상품을 조회하는 함수

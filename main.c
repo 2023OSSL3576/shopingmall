@@ -29,7 +29,36 @@ int main(void){
     }
     free(*u);
     if(checkSignIn==0){
-        printf("Á¾·áµÇ¾ú½À´Ï´Ù.\n");
+        printf("ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
         return 0;
+    }
+
+    Product *p[30];
+    int Pmenu;
+    count = 0;
+
+    while(1){
+        Pmenu = productMenu();
+        if(Pmenu == 0) break;
+        if(Pmenu == 1){
+            p[count] = (Product*)malloc(sizeof(Product));
+            count += addProduct(p[count]);
+        }
+        if(Pmenu == 2){
+            count -= deleteProduct(p, count);
+        }
+        if(Pmenu == 3){
+            updateProduct(p, count);
+        }
+        if(Pmenu == 4){
+            readProduct(p, count);
+        }
+        if(Pmenu == 5){
+            payProduct(p, count);
+            break;
+        }
+        if(Pmenu == 6){
+            showCoupon();
+        }
     }
 }

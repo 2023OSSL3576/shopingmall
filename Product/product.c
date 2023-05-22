@@ -1,11 +1,28 @@
 #include <stdio.h>
 #include "product.h"
 
+int productMenu(){
+    int menu;
+    printf("\n*** 쇼핑 시스템***\n");
+    printf("1. 상품 담기\n");
+    printf("2. 상품 삭제\n");
+    printf("3. 상품 수정\n");
+    printf("4. 상품 조회\n");
+    printf("5. 결제\n");
+    printf("6. 쿠폰 조회\n");
+    printf("0. 종료\n\n");
+    printf("메뉴 선택: ");
+    scanf("%d", &menu);
+    return menu;
+}
+
 int addProduct(Product *p){
     printf("상품명: ");
     scanf("%s", p->name);
+    getchar();
     printf("가격: ");
     scanf("%d", &p->price);
+    getchar();
     printf("상품 타입(1:식품, 2:의류, 3:가전제품): ");
     scanf("%c", &p->type);
     
@@ -27,9 +44,9 @@ int deleteProduct(Product *p[], int count){
 
 void readProduct(Product *p[], int count){
     printf("%d개의 상품이 있습니다!\n", count);
-    printf("번호 상품명      가격      상품 타입\n");   
+    printf("번호 상품명      가격      상품타입\n");   
     for(int i=0; i<count; i++){
-        printf("%-2d  %s %d %c\n", i+1, p[i]->name, p[i]->price, p[i]->type);
+        printf("%-2d   %-14s %-9d %c\n", i+1, p[i]->name, p[i]->price, p[i]->type);
     }
 }
 
@@ -44,8 +61,10 @@ void updateProduct(Product *p[], int count){
         return;
     printf("상품명: ");
     scanf("%s", p[num-1]->name);
+    getchar();
     printf("가격: ");
     scanf("%d", &p[num-1]->price);
+    getchar();
     printf("상품 타입(1:식품, 2:의류, 3:가전제품): ");
     scanf("%c", &p[num-1]->type);
 }
@@ -64,10 +83,10 @@ void payProduct(Product *p[], int count){
 }
 
 void showCoupon(){
-    printf("전체 구매금액 30만원 이상 구매 시 8%% 할인\n");
+    printf("\n전체 구매금액 30만원 이상 구매 시 8%% 할인\n");
     printf("식품 10만원 이상 구매 시 12%% 할인\n");
     printf("의류 5만원 이상 구매 시 15%% 할인\n");
-    printf("가전제품 20만원 이상 구매 시 10%% 할인\n");
+    printf("가전제품 20만원 이상 구매 시 10%% 할인\n\n");
 }
 
 int applyCoupon(Product *p[], int count){
@@ -76,7 +95,7 @@ int applyCoupon(Product *p[], int count){
     int foods = 0;
     int clothes = 0;
     int applians = 0;
-    int couponType[2] = {0};
+    int couponType[3] = {0};
     for(int i=0; i<count; i++){
         totalPrice += p[i]->price;
         if(p[i]->type == '1')
@@ -90,15 +109,15 @@ int applyCoupon(Product *p[], int count){
         totalPrice = totalPrice * 0.92;
     }
     if(foods >= 100000){
-        totalPrice = totalPrice * 0.88;
+        foods = foods * 0.88;
         couponType[0]++;
     }
     if(clothes >= 50000){
-        totalPrice = totalPrice * 0.85;
+        clothes = clothes * 0.85;
         couponType[1]++;
     }
     if(applians >= 200000){
-        totalPrice = totalPrice * 0.90;
+        applians = applians * 0.90;
         couponType[2]++;
     }
 
