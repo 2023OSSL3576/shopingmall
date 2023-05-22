@@ -1,12 +1,10 @@
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "User/user.h"
-//#include "Product/product.h"
+#include "Product/product.h"
 #define max 50
 
 int main(void){
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    //∑Œ±◊¿Œ Ω√Ω∫≈€
     User *u[max];
     int Umenu;
     int count = 0;
@@ -31,8 +29,37 @@ int main(void){
     }
     free(*u);
     if(checkSignIn==0){
-        printf("¡æ∑·µ«æ˙Ω¿¥œ¥Ÿ.\n");
+        printf("Ï¢ÖÎ£åÎêòÏóàÏäµÎãàÎã§.\n");
         return 0;
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    Product *p[30];
+    int Pmenu;
+    count = 0;
+    
+
+    while(1){
+        Pmenu = productMenu();
+        if(Pmenu == 0) break;
+        if(Pmenu == 1){
+            p[count] = (Product*)malloc(sizeof(Product));
+            count += addProduct(p[count]);
+        }
+        if(Pmenu == 2){
+            count -= deleteProduct(p, count);
+        }
+        if(Pmenu == 3){
+            updateProduct(p, count);
+        }
+        if(Pmenu == 4){
+            readProduct(p, count);
+        }
+        if(Pmenu == 5){
+            payProduct(p, count);
+            break;
+        }
+        if(Pmenu == 6){
+            showCoupon();
+        }
+    }
 }
