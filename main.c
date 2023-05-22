@@ -23,13 +23,15 @@ int main(void){
         if(Umenu==0) break;
         if(Umenu==1) {
             checkSignIn = signIn(u, count);
+            if(checkSignIn==1) break;
         }
         else if(Umenu==2) count = signUp(u, count);
-        else if(Umenu==3) withdrawal(u, count);
+        else if(Umenu==3) updateUser(u, count);
+        else if(Umenu==4) withdrawal(u, count);
     }
     free(*u);
     if(checkSignIn==0){
-        printf("\n종료되었습니다.\n");
+        printf("종료되었습니다.\n");
         return 0;
     }
     /////////////////////////////////////////////////////////////////////////////////////////////

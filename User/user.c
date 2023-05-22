@@ -38,7 +38,7 @@ void withdrawal(User *u[], int count){
     getchar();
     scanf("%[^\n]s", id);
     if(strcmp(id, "-1")==0){
-        printf("찾으시는 아이디가 없습니다.\n");
+        printf("존재하지 않는 아이디입니다.\n");
         return;
     }
     for(int i=0; i<count; i++){
@@ -49,7 +49,7 @@ void withdrawal(User *u[], int count){
         }
     }
     if(id_check==false){
-        printf("찾으시는 아이디가 없습니다.\n");
+        printf("존재하지 않는 아이디입니다.\n");
         return;
     }
     else{
@@ -135,11 +135,6 @@ int signUp(User *u[], int count){
         getchar();
         scanf("%[^\n]s", phoneNumber);
         if(strcmp(phoneNumber,"-1")==0) return count;
-        /*if(strlen(password)!=11){
-            printf("11글자 초과, 미만 혹은 '-'이나 띄어쓰기가 포함되어 있습니다. 다시 시도해주세요.\n");
-            continue;
-        }
-        else break;*/
         for(int i=0; i<strlen(phoneNumber); i++){
             if(phoneNumber[i] == ' '){
                 printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
@@ -185,7 +180,8 @@ int signIn(User *u[], int count){
 
     printf("------------Sign In------------\n");
     printf("아이디: ");
-    scanf("%s", id);
+    getchar();
+    scanf("%[^\n]s", id);
     for(int i=0; i<count; i++){
         if(strcmp(u[i]->id,id)==0){
             id_check = true;
@@ -198,7 +194,8 @@ int signIn(User *u[], int count){
     }
     else{
         printf("비밀번호: ");
-        scanf("%s", password);
+        getchar();
+        scanf("%[^\n]s", password);
         for(int i=0; i<count; i++){
             if(strcmp(u[i]->password,password)==0){
             password_check = true;
@@ -214,12 +211,143 @@ int signIn(User *u[], int count){
     return 1;
 }
 
+void updateUser(User *u[], int count){
+    char id[11];
+    char password[13];
+    char phoneNumber[12];
+    char userName[30];
+    bool id_check = false;
+    bool password_check = false;
+    bool check_blank = false;
+    int id_location;
+    int menu = -1;
+
+    printf("------------Changing Information------------\n");
+    printf("수정하려는 계정의 아이디: ");
+    getchar();
+    scanf("%[^\n]s", id);
+    if(strcmp(id, "-1")==0){
+        printf("존재하지 않는 아이디입니다.\n");
+        return;
+    }
+    for(int i=0; i<count; i++){
+        if(strcmp(u[i]->id, id)==0){
+            id_check = true;
+            id_location = i;
+            break;
+        }
+    }
+    if(id_check==false){
+        printf("존재하지 않는 아이디입니다.\n");
+        return;
+    }
+    else{
+        printf("수정하려는 계정의 비밀번호: ");
+        getchar();
+        scanf("%[^\n]s", password);
+        if(strcmp(u[id_location]->password, password)==0) password_check = true;
+        if(password_check==false){
+            printf("틀린 비밀번호입니다.\n");
+            return;
+        }
+        else {
+            while(menu!=0){
+                printf("\n---My page---\n");
+                printf("1. 비밀번호 수정\n");
+                printf("2. 전화번호 수정\n");
+                printf("3. 이름 수정\n");
+                printf("0. 종료\n\n");
+                printf("메뉴 선택: ");
+                scanf("%d", &menu);
+                if(menu==1){
+                    while(1){
+                        check_blank = false;
+                        printf("새 비밀번호(취소 -1): ");
+                        getchar();
+                        scanf("%[^\n]s", password);
+                        if(strcmp(password, "-1")==0) break;
+                        if(strlen(password)>12){
+                            printf("12글자 초과입니다. 다시 시도해주세요.\n");
+                            continue;
+                        }
+                        for(int i=0; i<strlen(password); i++){
+                            if(password[i] == ' '){
+                                printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
+                                check_blank = true;
+                                break;
+                            }
+                        }
+                        if(check_blank==true) continue;
+                        else {
+                            strcpy(u[id_location]->password, password);
+                            printf("\n수정되었습니다.\n");
+                            saveUser(u, count);
+                            break;
+                        }
+                    }
+                }
+                else if(menu==2){
+                    while(1){
+                        check_blank = false;
+                        printf("현재 전화번호(취소 -1): %s\n", u[id_location]->phoneNumber);
+                        printf("변경할 전화번호: ");
+                        getchar();
+                        scanf("%[^\n]s", phoneNumber);
+                        if(strcmp(phoneNumber, "-1")==0) continue;
+                        for(int i=0; i<strlen(phoneNumber); i++){
+                            if(phoneNumber[i] == ' '){
+                            printf("띄어쓰기가 되어 있습니다. 다시 시도해주세요.\n");
+                            check_blank = true;
+                            break;
+                            }
+                            if(phoneNumber[i] == '-'){
+                                printf("-이 포함되어있습니다. 다시 시도해주세요.\n");
+                                check_blank = true;
+                                break;
+                            }
+                            if(!isdigit(phoneNumber[i])){
+                                printf("숫자가 아닙니다. 다시 시도해주세요.\n");
+                                check_blank = true;
+                                break;
+                            }
+                        }
+                        if(check_blank==true) continue;
+                        else {
+                            strcpy(u[id_location]->phoneNumber, phoneNumber);
+                            printf("\n수정되었습니다.\n");
+                            saveUser(u, count);
+                            break;
+                        }
+                    }
+                }
+                else if(menu==3){
+                    while(1){
+                        printf("현재 이름(취소 -1): %s\n", u[id_location]->userName);
+                        printf("변경할 이름: ");
+                        getchar();
+                        scanf("%[^\n]s", userName);
+                        if(strcmp(userName, "-1")==0) continue;
+                        else{
+                            strcpy(u[id_location]->userName, userName);
+                            printf("\n수정되었습니다.\n");
+                            saveUser(u, count);
+                            break;
+                        }
+                    }
+                }
+            }
+            printf("종료되었습니다.\n");
+        }
+    }
+}
+
 int userMenu(){
     int menu;
     printf("\n*** 유저 시스템 ***\n");
     printf("1. 로그인\n");
     printf("2. 회원 가입\n");
-    printf("3. 회원 탈퇴\n");
+    printf("3. 정보 수정\n");
+    printf("4. 회원 탈퇴\n");
     printf("0. 종료\n\n");
     printf("메뉴 선택: ");
     scanf("%d", &menu);
