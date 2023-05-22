@@ -29,11 +29,13 @@ typedef struct{
     char userName[30]; //이름
 }User;
 
-void signUp(User *u[]); //회원가입하는 함수
-void signIn(User *u[]); //로그인하는 함수
+void signUp(User *u[], int count); //회원가입하는 함수
+void signIn(User *u[], int count); //로그인하는 함수
 int loadUser(User *u[]); //유저 정보 파일을 읽어오는 함수
 void saveUser(User *u[], int count); //유저 정보 파일을 저장함수 함수
 void withdrawal(User *u[], int count); //회원 탈퇴하는 함수(유저 정보 삭제하는 함수)
+void updateUser(User *u[], int count); //회원 정보를 수정하는 함수
+int userMenu(); //메뉴판
 
 typedef struct{
     char name[30]; //상품명
@@ -41,12 +43,14 @@ typedef struct{
     char type; //상품 타입(카테고리)
 }Product;
 
+int productMenu(); //메뉴 입력 함수
 int addProduct(Product *p); //상품을 추가하는 함수
 int deleteProduct(Product *p[], int count); //담은 상품을 삭제하는 함수
 void readProduct(Product *p[], int count); //담은 상품을 조회하는 함수
 void updateProduct(Product *p[], int count); //담은 상품의 정보를 수정하는 함수
-void payProduct(Product *p); //담은 상품을 결제하는 함수
-void applyCoupon(Product *p); //쿠폰을 자동으로 적용해주는 함수
+void payProduct(Product *p[], int count); //담은 상품을 결제하는 함수
+void showCoupon(); //쿠폰을 보여주는 함수
+int applyCoupon(Product *p[], int count); //쿠폰을 자동으로 적용해주는 함수
 ```
 
 # 개발환경 및 언어
