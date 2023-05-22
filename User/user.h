@@ -1,8 +1,8 @@
 typedef struct{
-    char id[11]; //아이디
-    char password[13]; //비밀번호
-    char phoneNumber[12]; //휴대전화 번호
-    char userName[30]; //이름
+    char id[30]; //아이디
+    char password[30]; //비밀번호
+    char phoneNumber[30]; //휴대전화 번호
+    char userName[50]; //이름
 }User;
 
 int signUp(User *u[], int count); //회원가입하는 함수

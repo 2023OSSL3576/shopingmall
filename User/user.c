@@ -27,8 +27,8 @@ int loadUser(User *u[]){
 }
 
 void withdrawal(User *u[], int count){
-    char id[11];
-    char password[13];
+    char id[30];
+    char password[30];
     bool id_check = false;
     bool password_check = false;
     int id_location;
@@ -73,10 +73,10 @@ void withdrawal(User *u[], int count){
 
 int signUp(User *u[], int count){
     bool blank_check;
-    char id[11];
-    char password[13];
-    char phoneNumber[12];
-    char userName[30]; 
+    char id[30];
+    char password[30];
+    char phoneNumber[30];
+    char userName[50]; 
 
     printf("------------Sign Un------------\n");
     printf("각 단계에서 회원가입을 취고하시려면 -1을 입력해주세요.\n");
@@ -134,6 +134,10 @@ int signUp(User *u[], int count){
         printf("3. 전화번호(-없이 숫자만, 띄어쓰기 미포함): ");
         getchar();
         scanf("%[^\n]s", phoneNumber);
+        if(strlen(phoneNumber)>11){
+            printf("11글자 초과입니다. 다시 시도해주세요\n");
+            continue;
+        }
         if(strcmp(phoneNumber,"-1")==0) return count;
         for(int i=0; i<strlen(phoneNumber); i++){
             if(phoneNumber[i] == ' '){
@@ -156,10 +160,17 @@ int signUp(User *u[], int count){
         else break;
     }
 
-    printf("이름: ");
-    getchar();
-    scanf("%[^\n]s", userName);
-    if(strcmp(userName,"-1")==0) return count;
+    while(1){
+        printf("4. 이름: ");
+        getchar();
+        scanf("%[^\n]s", userName);
+        if(strlen(userName)>29){
+            printf("29바이트 초과입니다. 다시 입력해주세요\n");
+            continue;
+        }
+        if(strcmp(userName,"-1")==0) return count;
+        break;
+    }
 
     strcpy(u[count]->id, id);
     strcpy(u[count]->password, password);
@@ -173,8 +184,8 @@ int signUp(User *u[], int count){
 }
 
 int signIn(User *u[], int count){
-    char id[11];
-    char password[13];
+    char id[30];
+    char password[30];
     bool id_check = false;
     bool password_check = false;
 
@@ -212,10 +223,10 @@ int signIn(User *u[], int count){
 }
 
 void updateUser(User *u[], int count){
-    char id[11];
-    char password[13];
-    char phoneNumber[12];
-    char userName[30];
+    char id[30];
+    char password[30];
+    char phoneNumber[30];
+    char userName[50];
     bool id_check = false;
     bool password_check = false;
     bool blank_check = false;
