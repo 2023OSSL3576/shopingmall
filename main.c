@@ -1,36 +1,65 @@
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "User/user.h"
-//#include "Product/product.h"
+#include "Product/product.h"
 #define max 50
 
 int main(void){
     /////////////////////////////////////////////////////////////////////////////////////////////
-    //·Î±×ÀÎ ½Ã½ºÅÛ
-    User *u[max];
-    int Umenu;
-    int count = 0;
-    int checkSignIn = 0;
+    //ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½
+    // User *u[max];
+    // int Umenu;
+    // int count = 0;
+    // int checkSignIn = 0;
 
-    for(int i=0; i<max; i++){
-        u[i] = (User*)malloc(sizeof(User));
-    }
+    // for(int i=0; i<max; i++){
+    //     u[i] = (User*)malloc(sizeof(User));
+    // }
 
-    count = loadUser(u);
+    // count = loadUser(u);
+
+    // while(1){
+    //     Umenu = userMenu();
+    //     if(Umenu==0) break;
+    //     if(Umenu==1) {
+    //         checkSignIn = signIn(u, count);
+    //     }
+    //     else if(Umenu==2) count = signUp(u, count);
+    //     else if(Umenu==3) withdrawal(u, count);
+    // }
+    // free(*u);
+    // if(checkSignIn==0){
+    //     printf("\nï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.\n");
+    //     return 0;
+    // }
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    Product *p[30];
+    int Pmenu;
+    count = 0;
+    
 
     while(1){
-        Umenu = userMenu();
-        if(Umenu==0) break;
-        if(Umenu==1) {
-            checkSignIn = signIn(u, count);
+        Pmenu = productMenu();
+        if(Pmenu == 0) break;
+        if(Pmenu == 1){
+            p[count] = (Product*)malloc(sizeof(Product));
+            count += addProduct(p[count]);
         }
-        else if(Umenu==2) count = signUp(u, count);
-        else if(Umenu==3) withdrawal(u, count);
+        if(Pmenu == 2){
+            count -= deleteProduct(p, count);
+        }
+        if(Pmenu == 3){
+            updateProduct(p, count);
+        }
+        if(Pmenu == 4){
+            readProduct(p, count);
+        }
+        if(Pmenu == 5){
+            payProduct(p, count);
+            break;
+        }
+        if(Pmenu == 6){
+            showCoupon();
+        }
     }
-    free(*u);
-    if(checkSignIn==0){
-        printf("\nÁ¾·áµÇ¾ú½À´Ï´Ù.\n");
-        return 0;
-    }
-    /////////////////////////////////////////////////////////////////////////////////////////////
 }
