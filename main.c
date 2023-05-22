@@ -1,12 +1,10 @@
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "User/user.h"
-//#include "Product/product.h"
-#define max 50
+#include "Product/product.h"
+#define max 30
 
 int main(void){
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    //로그인 시스템
     User *u[max];
     int Umenu;
     int count = 0;
@@ -34,5 +32,4 @@ int main(void){
         printf("종료되었습니다.\n");
         return 0;
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////
 }
