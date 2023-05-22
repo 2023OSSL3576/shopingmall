@@ -29,7 +29,7 @@ int main(void){
     }
     free(*u);
     if(checkSignIn==0){
-        printf("ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+        printf("Á¾·áµÇ¾ú½À´Ï´Ù.\n");
         return 0;
     }
 

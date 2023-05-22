@@ -3,27 +3,27 @@
 
 int productMenu(){
     int menu;
-    printf("\n*** ì‡¼í•‘ ì‹œìŠ¤í…œ***\n");
-    printf("1. ìƒí’ˆ ë‹´ê¸°\n");
-    printf("2. ìƒí’ˆ ì‚­ì œ\n");
-    printf("3. ìƒí’ˆ ìˆ˜ì •\n");
-    printf("4. ìƒí’ˆ ì¡°íšŒ\n");
-    printf("5. ê²°ì œ\n");
-    printf("6. ì¿ í° ì¡°íšŒ\n");
-    printf("0. ì¢…ë£Œ\n\n");
-    printf("ë©”ë‰´ ì„ íƒ: ");
+    printf("\n*** ¼îÇÎ ½Ã½ºÅÛ***\n");
+    printf("1. »óÇ° ´ã±â\n");
+    printf("2. »óÇ° »èÁ¦\n");
+    printf("3. »óÇ° ¼öÁ¤\n");
+    printf("4. »óÇ° Á¶È¸\n");
+    printf("5. °áÁ¦\n");
+    printf("6. ÄíÆù Á¶È¸\n");
+    printf("0. Á¾·á\n\n");
+    printf("¸Ş´º ¼±ÅÃ: ");
     scanf("%d", &menu);
     return menu;
 }
 
 int addProduct(Product *p){
-    printf("ìƒí’ˆëª…: ");
+    printf("»óÇ°¸í: ");
     scanf("%s", p->name);
     getchar();
-    printf("ê°€ê²©: ");
+    printf("°¡°İ: ");
     scanf("%d", &p->price);
     getchar();
-    printf("ìƒí’ˆ íƒ€ì…(1:ì‹í’ˆ, 2:ì˜ë¥˜, 3:ê°€ì „ì œí’ˆ): ");
+    printf("»óÇ° Å¸ÀÔ(1:½ÄÇ°, 2:ÀÇ·ù, 3:°¡ÀüÁ¦Ç°): ");
     scanf("%c", &p->type);
     
     return 1;
@@ -34,7 +34,7 @@ int deleteProduct(Product *p[], int count){
         return 0;
     readProduct(p, count);
     int num;
-    printf("ì‚­ì œí•˜ê³  ì‹¶ì€ ìƒí’ˆì˜ ë²ˆí˜¸: ");
+    printf("»èÁ¦ÇÏ°í ½ÍÀº »óÇ°ÀÇ ¹øÈ£: ");
     scanf("%d", &num);
     for(int i=num-1; i<count-1; i++){
         p[i] = p[i+1];
@@ -43,8 +43,8 @@ int deleteProduct(Product *p[], int count){
 }
 
 void readProduct(Product *p[], int count){
-    printf("%dê°œì˜ ìƒí’ˆì´ ìˆìŠµë‹ˆë‹¤!\n", count);
-    printf("ë²ˆí˜¸ ìƒí’ˆëª…      ê°€ê²©      ìƒí’ˆíƒ€ì…\n");   
+    printf("%d°³ÀÇ »óÇ°ÀÌ ÀÖ½À´Ï´Ù!\n", count);
+    printf("¹øÈ£ »óÇ°¸í      °¡°İ      »óÇ°Å¸ÀÔ\n");   
     for(int i=0; i<count; i++){
         printf("%-2d   %-14s %-9d %c\n", i+1, p[i]->name, p[i]->price, p[i]->type);
     }
@@ -55,17 +55,17 @@ void updateProduct(Product *p[], int count){
         return;
     readProduct(p, count);
     int num;
-    printf("ìˆ˜ì •í•˜ê³  ì‹¶ì€ ìƒí’ˆì˜ ë²ˆí˜¸: ");
+    printf("¼öÁ¤ÇÏ°í ½ÍÀº »óÇ°ÀÇ ¹øÈ£: ");
     scanf("%d", &num);
     if(num > count-1 || num < 0)
         return;
-    printf("ìƒí’ˆëª…: ");
+    printf("»óÇ°¸í: ");
     scanf("%s", p[num-1]->name);
     getchar();
-    printf("ê°€ê²©: ");
+    printf("°¡°İ: ");
     scanf("%d", &p[num-1]->price);
     getchar();
-    printf("ìƒí’ˆ íƒ€ì…(1:ì‹í’ˆ, 2:ì˜ë¥˜, 3:ê°€ì „ì œí’ˆ): ");
+    printf("»óÇ° Å¸ÀÔ(1:½ÄÇ°, 2:ÀÇ·ù, 3:°¡ÀüÁ¦Ç°): ");
     scanf("%c", &p[num-1]->type);
 }
 
@@ -75,18 +75,18 @@ void payProduct(Product *p[], int count){
     for(int i=0; i<count; i++)
         total += p[i]->price;
 
-    printf("ìƒí’ˆ ê¸ˆì•¡: %dì›\n", total);
+    printf("»óÇ° ±İ¾×: %d¿ø\n", total);
     int result = applyCoupon(p, count);
     int discount = total - result;
-    printf("í• ì¸ ê¸ˆì•¡: %d\n", discount);
-    printf("í•©ê³„: %d\n", result);
+    printf("ÇÒÀÎ ±İ¾×: %d\n", discount);
+    printf("ÇÕ°è: %d\n", result);
 }
 
 void showCoupon(){
-    printf("\nì „ì²´ êµ¬ë§¤ê¸ˆì•¡ 30ë§Œì› ì´ìƒ êµ¬ë§¤ ì‹œ 8%% í• ì¸\n");
-    printf("ì‹í’ˆ 10ë§Œì› ì´ìƒ êµ¬ë§¤ ì‹œ 12%% í• ì¸\n");
-    printf("ì˜ë¥˜ 5ë§Œì› ì´ìƒ êµ¬ë§¤ ì‹œ 15%% í• ì¸\n");
-    printf("ê°€ì „ì œí’ˆ 20ë§Œì› ì´ìƒ êµ¬ë§¤ ì‹œ 10%% í• ì¸\n\n");
+    printf("\nÀüÃ¼ ±¸¸Å±İ¾× 30¸¸¿ø ÀÌ»ó ±¸¸Å ½Ã 8%% ÇÒÀÎ\n");
+    printf("½ÄÇ° 10¸¸¿ø ÀÌ»ó ±¸¸Å ½Ã 12%% ÇÒÀÎ\n");
+    printf("ÀÇ·ù 5¸¸¿ø ÀÌ»ó ±¸¸Å ½Ã 15%% ÇÒÀÎ\n");
+    printf("°¡ÀüÁ¦Ç° 20¸¸¿ø ÀÌ»ó ±¸¸Å ½Ã 10%% ÇÒÀÎ\n\n");
 }
 
 int applyCoupon(Product *p[], int count){
@@ -122,13 +122,13 @@ int applyCoupon(Product *p[], int count){
     }
 
     if(totalPrice > foods + clothes + applians){
-        if(couponType[0] == 1) printf("ì‹í’ˆ ê¸ˆì•¡ í• ì¸ì¿ í° ì ìš©ë¨\n");
-        if(couponType[1] == 1) printf("ì˜ë¥˜ ê¸ˆì•¡ í• ì¸ì¿ í° ì ìš©ë¨\n");
-        if(couponType[2] == 1) printf("ê°€ì „ì œí’ˆ ê¸ˆì•¡ í• ì¸ì¿ í° ì ìš©ë¨\n");
+        if(couponType[0] == 1) printf("½ÄÇ° ±İ¾× ÇÒÀÎÄíÆù Àû¿ëµÊ\n");
+        if(couponType[1] == 1) printf("ÀÇ·ù ±İ¾× ÇÒÀÎÄíÆù Àû¿ëµÊ\n");
+        if(couponType[2] == 1) printf("°¡ÀüÁ¦Ç° ±İ¾× ÇÒÀÎÄíÆù Àû¿ëµÊ\n");
 
         return foods + clothes + applians;
     }
 
-    printf("ì „ì²´ ê¸ˆì•¡ í• ì¸ì¿ í° ì ìš©ë¨\n");
+    printf("ÀüÃ¼ ±İ¾× ÇÒÀÎÄíÆù Àû¿ëµÊ\n");
     return totalPrice;
 }
